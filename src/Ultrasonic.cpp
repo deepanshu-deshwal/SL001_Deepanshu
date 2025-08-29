@@ -1,4 +1,4 @@
-#include "Ultrasonic.h"
+#include "Ultrasonic_Deepanshu.h"
 float getDistance(int trig, int echo) {
   digitalWrite(trig, LOW);
   delayMicroseconds(2);
