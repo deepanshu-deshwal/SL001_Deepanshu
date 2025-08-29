@@ -1,4 +1,4 @@
-Ultrasonic_Deepanshu Arduino Library
+SL001_Deepanshu Arduino Library
 A simple and lightweight Arduino library for the HC-SR04 ultrasonic distance sensor. This library makes it easy to measure distances with high accuracy.
 
 Description
@@ -25,7 +25,7 @@ Open the Arduino IDE.
 
 Go to Sketch -> Include Library -> Manage Libraries....
 
-Search for Ultrasonic_Deepanshu.
+Search for SL001_Deepanshu.
 
 Click the "Install" button.
 
@@ -43,45 +43,36 @@ How to Use
 Here is a basic example of how to use the library to print distance measurements to the Serial Monitor.
 
 // Include the library
-#include <Ultrasonic.h> // The header file name is still Ultrasonic.h
+#include <SL001_Deepanshu.h>
 
 // Define the trigger and echo pins
 const int TRIG_PIN = 12;
 const int ECHO_PIN = 11;
 
-// Create an instance of the Ultrasonic class
-Ultrasonic ultrasonic(TRIG_PIN, ECHO_PIN);
-
 void setup() {
-  // Start the serial communication to see the results
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
   Serial.begin(9600);
-  Serial.println("Ultrasonic Sensor Test");
 }
-
 void loop() {
-  // Read the distance in centimeters
-  long distance = ultrasonic.read();
-
-  // Print the distance to the Serial Monitor
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-
-  // Wait for a short period before taking the next reading
+  float distance = getDistance(trigPin, echoPin);
+  if (distance == -1) {
+    Serial.println("Out of range");
+  } else {
+    Serial.println(distance);
+  }
   delay(500);
 }
 
 API
-Ultrasonic(int trigPin, int echoPin)
+getDistance(int trigPin, int echoPin)
 
-The constructor. Creates an Ultrasonic object.
+The constructor. Creates an getDistance object.
 
 trigPin: The Arduino pin connected to the sensor's TRIG pin.
 
 echoPin: The Arduino pin connected to the sensor's ECHO pin.
 
-long read()
-
 Triggers the sensor and reads the echo pulse to calculate the distance.
 
-Returns: The distance to the object in centimeters (long).
+Returns: The distance to the object in centimeters (float).
